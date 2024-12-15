@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package rides;
+
+option go_package = "github.com/moiz-r/ridehailing-system/common/rides";
+
+service RidesService {
+    rpc UpdateRide(UpdateRideRequest) returns (UpdateRideResponse);
+}
+
+message UpdateRideRequest {
+    string ride_id = 1;
+    Ride ride = 2;
+}
+
+message UpdateRideResponse {
+    string ride_id = 1;
+    bool success = 2;
+}
+
+message Ride {
+    string source = 1;
+    string destination = 2;
+    double distance = 3; 
+    double cost = 4;    
+}
+

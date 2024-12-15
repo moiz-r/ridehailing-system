@@ -1,0 +1,9 @@
+config:
+  grpcPort: "50052"
+  metricsPort: "9091"
+  database:
+    host: "postgres"
+    port: "5432"
+    user: "postgres"
+    password: "password"
+    name: "ridehailing"

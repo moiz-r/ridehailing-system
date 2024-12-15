@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package booking;
+
+option go_package = "github.com/moiz-r/ridehailing-system/common/bookings";
+
+import "google/protobuf/timestamp.proto";
+
+// BookingService definition
+service BookingService {
+  rpc CreateBooking (CreateBookingRequest) returns (CreateBookingResponse);
+  rpc GetBooking (GetBookingRequest) returns (GetBookingResponse);
+}
+
+message CreateBookingRequest {
+  string user_id = 1;
+
+  Ride ride = 2;
+}
+
+message Ride {
+  string source = 1;
+  string destination = 2;
+  double distance = 3; 
+  double cost = 4;    
+}
+
+
+message CreateBookingResponse {
+  string user_id = 1;
+  string ride_id = 2;
+  string booking_id = 3;
+  google.protobuf.Timestamp time = 4; 
+}
+
+
+message GetBookingRequest {
+  string booking_id = 1;
+}
+
+
+message GetBookingResponse {
+  string booking_id = 1;
+  string user_id = 2;     
+  string source = 3;
+  string destination = 4;
+  double distance = 5;
+  double cost = 6;
+  google.protobuf.Timestamp time = 7;
+  string ride_id = 8;
+}
