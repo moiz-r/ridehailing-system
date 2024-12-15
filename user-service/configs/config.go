@@ -15,8 +15,9 @@ type DatabaseConfig struct {
 }
 
 type Config struct {
-	GRPCPort string         `mapstructure:"grpcPort"`
-	Database DatabaseConfig `mapstructure:"database"`
+	GRPCPort    string         `mapstructure:"grpcPort"`
+	Database    DatabaseConfig `mapstructure:"database"`
+	MetricsPort string         `mapstructure:"metricsPort"`
 }
 
 // LoadConfig reads configuration from a file or environment variables.

@@ -23,5 +23,7 @@ RUN go build -o user-service-build user-service/cmd/main.go
 # Expose the gRPC port
 EXPOSE 50051
 
+EXPOSE 9090
+
 # Run the application
 CMD ["./user-service-build"]

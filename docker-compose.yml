@@ -29,6 +29,7 @@ services:
       DB_NAME: ridehailing
     ports:
       - "50051:50051"
+      - "9090:9090"
 
 volumes:
   postgres_data:

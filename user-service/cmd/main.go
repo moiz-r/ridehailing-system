@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"net"
+	"net/http"
 	"os"
 	"os/signal"
 	"strconv"
@@ -12,6 +13,7 @@ import (
 	"github.com/moiz-r/ridehailing-system/user-service/configs"
 	"github.com/moiz-r/ridehailing-system/user-service/internal/service"
 	"github.com/moiz-r/ridehailing-system/user-service/internal/store"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 )
@@ -27,6 +29,14 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading config", zap.Error(err))
 	}
+
+	go func() {
+		http.Handle("/metrics", promhttp.Handler())
+		if err := http.ListenAndServe(":"+cfg.MetricsPort, nil); err != nil {
+			log.Fatal("Failed to start metrics server", zap.Error(err))
+		}
+	}()
+
 	userStore, err := store.NewPostgresStore(&cfg.Database)
 	if err != nil {
 		log.Fatal("Error creating user store", zap.Error(err))
@@ -66,6 +76,7 @@ func main() {
 	<-ctx.Done()
 	log.Info("Shutting down gRPC server...")
 	grpcServer.GracefulStop()
+
 	log.Info("gRPC server stopped")
 
 }

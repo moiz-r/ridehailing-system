@@ -1,5 +1,6 @@
 config:
   grpcPort: "50051"
+  metricsPort: "9090"
   database:
     host: "postgres"
     port: "5432"

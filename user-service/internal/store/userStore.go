@@ -45,10 +45,11 @@ func (ps *PostgresStore) CreateUser(name string) (*model.User, error) {
 	defer stmt.Close()
 
 	var user model.User
-	err = stmt.QueryRow(name).Scan(&user.UserID, &user.Name)
+	err = stmt.QueryRow(name).Scan(&user.UserID)
 	if err != nil {
 		return nil, err
 	}
+	user.Name = name
 	return &user, nil
 }
 
